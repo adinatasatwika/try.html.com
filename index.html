@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Surprise for Lintang ❤️</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap');
+
+        body { 
+            margin: 0; 
+            font-family: 'Quicksand', sans-serif; 
+            color: #444; 
+            overflow-x: hidden; 
+            background: #fce4ec; 
+        }
+
+        /* --- BACKGROUND SLIDESHOW --- */
+        .background-slideshow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2; 
+            overflow: hidden;
+        }
+
+        .bg-img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            filter: brightness(0.7) blur(3px); 
+            animation: slideAnimation 15s infinite;
+        }
+
+        .bg-img:nth-child(1) { animation-delay: 0s; }
+        .bg-img:nth-child(2) { animation-delay: 5s; }
+        .bg-img:nth-child(3) { animation-delay: 10s; }
+
+        @keyframes slideAnimation {
+            0% { opacity: 0; transform: scale(1); }
+            10% { opacity: 1; }
+            33% { opacity: 1; }
+            43% { opacity: 0; transform: scale(1.1); }
+            100% { opacity: 0; }
+        }
+
+        /* --- FLOATING HEARTS --- */
+        .heart {
+            position: fixed;
+            font-size: 20px;
+            color: rgba(255, 64, 129, 0.4);
+            z-index: -1;
+            user-select: none;
+            animation: floatHeart 15s linear infinite;
+        }
+
+        @keyframes floatHeart {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        section {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.8); 
+            backdrop-filter: blur(15px);
+            padding: 40px;
+            border-radius: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            border: 3px solid #ffffff;
+            max-width: 500px;
+            width: 90%;
+        }
+
+        h1, h2 { color: #d81b60; font-weight: 700; margin-bottom: 20px; }
+        
+        input { 
+            padding: 15px 25px; 
+            border: 2px solid #f8bbd0; 
+            border-radius: 50px; 
+            width: 80%; 
+            margin-bottom: 25px; 
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1rem;
+            text-align: center;
+            outline: none;
+        }
+
+        button {
+            padding: 15px 30px;
+            background: linear-gradient(45deg, #ff4081, #f06292);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: 0.4s;
+            box-shadow: 0 8px 20px rgba(255, 64, 129, 0.3);
+            margin: 5px;
+        }
+
+        button:hover { transform: scale(1.05); }
+
+        .btn-quiz {
+            display: block;
+            width: 100%;
+            background: white;
+            color: #d81b60;
+            border: 2px solid #f8bbd0;
+            margin: 10px 0;
+            text-align: left;
+            padding: 12px 20px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-quiz:hover { background: #fce4ec; transform: translateX(10px); }
+
+        .pesan-teks { 
+            font-size: 1.2rem; 
+            background: rgba(255, 255, 255, 0.7);
+            padding: 25px;
+            border-radius: 30px;
+            color: #ad1457;
+            border: 2px dashed #f8bbd0;
+            margin-bottom: 20px;
+            max-width: 600px;
+        }
+
+        .foto-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+
+        .foto-container img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 15px;
+            border: 4px solid white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: 0.3s ease;
+        }
+
+        #hasil-hadiah, #hasil-extra {
+            margin-top: 25px;
+            font-weight: bold;
+            color: #880e4f;
+            font-size: 1.3rem;
+            background: #fff;
+            padding: 20px;
+            border-radius: 25px;
+            display: none;
+            animation: pop 0.6s ease;
+        }
+
+        .btn-reset {
+            background: #757575;
+            font-size: 0.8rem;
+            padding: 8px 15px;
+            margin-top: 15px;
+            box-shadow: none;
+        }
+
+        @keyframes pop { 0% { transform: scale(0); } 100% { transform: scale(1); } }
+
+        /* --- CSS VIRTUAL CAKE --- */
+        .cake-container {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            margin: 40px auto;
+            cursor: pointer;
+        }
+
+        .cake {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 60%;
+            background: #f48fb1;
+            border-radius: 20px 20px 10px 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .cake::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: 0;
+            width: 100%;
+            height: 30px;
+            background: #fce4ec;
+            border-radius: 50%;
+        }
+
+        .candle {
+            position: absolute;
+            top: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 45px;
+            background: linear-gradient(to bottom, #ba68c8, #ce93d8);
+            border-radius: 3px;
+            z-index: 1;
+        }
+
+        .flame {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 15px;
+            height: 25px;
+            background: #ffeb3b;
+            border-radius: 50% 50% 20% 20%;
+            box-shadow: 0 0 10px #ffeb3b, 0 0 20px #ff9800;
+            animation: flicker 0.1s ease-in-out infinite alternate;
+            transition: opacity 0.5s ease;
+        }
+
+        .smoke {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            height: 10px;
+            background: rgba(100,100,100,0.4);
+            border-radius: 50%;
+            opacity: 0;
+        }
+
+        @keyframes flicker {
+            0% { transform: translateX(-50%) scale(1); opacity: 0.9; }
+            100% { transform: translateX(-50%) scale(1.1); opacity: 1; }
+        }
+
+        .candle.off .flame { opacity: 0; pointer-events: none; }
+        .candle.off .smoke { animation: smokeOut 1s ease-out forwards; }
+
+        @keyframes smokeOut {
+            0% { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+            100% { opacity: 0; transform: translateX(-50%) translateY(-30px) scale(2); }
+        }
+
+        #layar-pesan, #layar-quiz, #layar-hadiah, #layar-extra, #layar-asing, #layar-kue { display: none; }
+    </style>
+</head>
+<body>
+
+    <div class="background-slideshow">
+        <img src="gambar/INI1.jpeg" class="bg-img" alt="bg1">
+        <img src="gambar/INI2.jpeg" class="bg-img" alt="bg2">
+        <img src="gambar/INI3.jpeg" class="bg-img" alt="bg3">
+    </div>
+
+    <audio id="musikSurprise" loop>
+        <source src="Risk It All.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <section id="layar-input">
+        <div class="card">
+            <h2>MASUKKIN NAMA LENGKAPMU! ❤️</h2>
+            <p style="font-size: 0.8rem; color: #d81b60;">(huruf kecil semua ya cantik...)</p>
+            <input type="text" id="inputNama" placeholder="Ketik di sini...">
+            <br>
+            <button onclick="prosesKejutan()">Buka Kejutan ✨</button>
+        </div>
+    </section>
+
+    <section id="layar-asing">
+        <div class="card">
+            <h2 style="color: #444;">HAYO SIAPA KAMU? 🤔</h2>
+            <div class="pesan-teks">
+                <p>Maaf banget, akses ini terlarang selain buat <b>Lintang Kinasih</b>.</p>
+            </div>
+            <button onclick="location.reload()">Coba Lagi</button>
+        </div>
+    </section>
+
+    <section id="layar-pesan">
+        <h1>Happy Birthday, <span id="namaUser"></span>! 🎂</h1>
+        <div class="pesan-teks">
+            <p>"Selamat ulang tahun ke-20 Lintang ketipang ketipung. Semoga di umur yang kepalanya baru ini kamu berhasil dengan apa yang kamu cita-citakan. ✨"</p>
+            <div class="foto-container">
+                <img src="gambar/INI1.jpeg" alt="Foto 1">
+                <img src="gambar/INI2.jpeg" alt="Foto 2">
+                <img src="gambar/INI3.jpeg" alt="Foto 3">
+            </div>
+        </div>
+        <button onclick="pindahKeQuiz()">Ambil Hadiah! 🎁</button>
+    </section>
+
+    <section id="layar-quiz">
+        <div class="card">
+            <h2 id="judul-quiz">Tantangan Dulu Bos!</h2>
+            <p id="pertanyaan" style="font-weight: bold; font-size: 1.1rem; margin-bottom: 20px; color: #ad1457;"></p>
+            <div id="opsi-jawaban"></div>
+        </div>
+    </section>
+
+    <section id="layar-hadiah">
+        <h1>Kado Utama Spesial! 🎁</h1>
+        <p>Gokil! Kamu lulus tantangan. Silahkan pilih satu kado:</p>
+        <div id="wadah-tombol-kado">
+            <button style="background: #ba68c8;" onclick="pilihHadiah(1)">🎁 Kado 1</button>
+            <button style="background: #ba68c8;" onclick="pilihHadiah(2)">🎁 Kado 2</button>
+            <button style="background: #ba68c8;" onclick="pilihHadiah(3)">🎁 Kado 3</button>
+        </div>
+        <div id="hasil-hadiah"></div>
+        <button id="btn-lanjut" style="display:none; background: #4caf50; margin-top: 30px;" onclick="pindahKeExtra()">Ada Bonus Nih... 👀</button>
+    </section>
+
+    <section id="layar-extra">
+        <h1>Paket Tambahan! ✨</h1>
+        <p style="color: #ad1457;">Pilih satu buat nanti kita jalan:</p>
+        <div id="wadah-tombol-extra">
+            <button style="background: #00bcd4;" onclick="pilihExtra(1)">☕ Nongkrong</button>
+            <button style="background: #e91e63;" onclick="pilihExtra(2)">💐 Bunga</button>
+            <button style="background: #673ab7;" onclick="pilihExtra(3)">📸 Photobooth</button>
+        </div>
+        <div id="hasil-extra"></div>
+        <button id="btn-ke-kue" style="display:none; background: #d81b60; margin-top: 30px;" onclick="pindahKeKue()">Terakhir Nih... 🎂</button>
+    </section>
+
+    <section id="layar-kue">
+        <div class="card">
+            <h2>Tiup Lilinnya Dong! 🕯️</h2>
+            <p style="font-size: 0.9rem; color: #ad1457;">(Ketuk apinya buat niup...)</p>
+            <div class="cake-container" onclick="tiupLilin()">
+                <div class="candle" id="lilinUtama">
+                    <div class="flame"></div>
+                    <div class="smoke"></div>
+                </div>
+                <div class="cake"></div>
+            </div>
+            <div id="pesan-final" style="display:none; margin-top: 20px;">
+                <h1 style="font-size: 2rem;">HBD Lintang! ❤️</h1>
+                <p class="pesan-teks" style="font-size: 1rem; border-style: solid;">
+                    "Semoga di umur 20 ini kamu makin bahagia. Berang-berang makan kerang, yu berangkat jalan-jalan! Luv u! ✨"
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // --- ANIMASI HATI ---
+        for (let i = 0; i < 20; i++) {
+            let heart = document.createElement("div");
+            heart.className = "heart";
+            heart.innerHTML = "❤️";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = (Math.random() * 10 + 5) + "s";
+            heart.style.fontSize = (Math.random() * 20 + 10) + "px";
+            document.body.appendChild(heart);
+        }
+
+        function hujanConfetti() {
+            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#ff4081', '#ffffff'] });
+        }
+
+        // --- NAVIGATION ---
+        function slowScroll(targetId) {
+            const target = document.getElementById(targetId);
+            target.style.display = "flex";
+            window.scrollTo({ top: target.offsetTop, behavior: 'smooth' });
+        }
+
+        // --- LOGIC ---
+        function prosesKejutan() {
+            const nama = document.getElementById("inputNama").value.toLowerCase().trim();
+            if (nama === "lintang kinasih") {
+                const audio = document.getElementById("musikSurprise");
+                audio.volume = 0.3; audio.play();
+                document.getElementById("namaUser").innerText = "Lintang Kinasih";
+                slowScroll('layar-pesan');
+            } else if (nama === "") {
+                alert("Namanya diisi dulu cantik...");
+            } else {
+                slowScroll('layar-asing');
+            }
+        }
+
+        function pindahKeQuiz() { slowScroll('layar-quiz'); tampilkanPertanyaan(); }
+
+        let currentQuestion = 0;
+        const questions = [
+            { q: "Dimana Wika lahir?", a: [{ t: "RS Restu Bunda", correct: false }, { t: "RS Bakti Ibu", correct: true }] },
+            { q: "Dimana kita ketemu?", a: [{ t: "Skaven", correct: true }, { t: "UNY", correct: false }] },
+            { q: "Kemana date kita pertama?", a: [{ t: "Potong rambut sekelas", correct: true }, { t: "Amplas", correct: false }] },
+            { q: "Jurusan kuliah Wika apa?", a: [{ t: "Supir bus", correct: true }, { t: "Teknologi informasi", correct: true }] },
+            { q: "Lagu favorit Wika saat ini?", a: [{ t: "Risk It All", correct: true }, { t: "Sesal", correct: true }] }
+        ];
+
+        function tampilkanPertanyaan() {
+            const qData = questions[currentQuestion];
+            document.getElementById("judul-quiz").innerText = `Tantangan (${currentQuestion + 1}/${questions.length})`;
+            document.getElementById("pertanyaan").innerText = qData.q;
+            const container = document.getElementById("opsi-jawaban");
+            container.innerHTML = "";
+            qData.a.forEach(opsi => {
+                const btn = document.createElement("button");
+                btn.className = "btn-quiz";
+                btn.innerText = opsi.t;
+                btn.onclick = () => {
+                    if (opsi.correct) {
+                        currentQuestion++;
+                        if (currentQuestion < questions.length) tampilkanPertanyaan();
+                        else { hujanConfetti(); slowScroll('layar-hadiah'); }
+                    } else alert("SALAHHH! Ayo coba lagi!");
+                };
+                container.appendChild(btn);
+            });
+        }
+
+        function pilihHadiah(nomor) {
+            hujanConfetti();
+            const display = document.getElementById("hasil-hadiah");
+            let kado = ["Free check out Shopee! 🛒", "Tiket Konser Jogja! 🎸", "Voucher Belanja 750rb! 🛍️"][nomor-1];
+            document.getElementById("wadah-tombol-kado").style.display = "none";
+            display.style.display = "block";
+            display.innerHTML = `${kado}<br><button class="btn-reset" onclick="resetHadiah()">Ganti Kado... 🔄</button>`;
+            document.getElementById("btn-lanjut").style.display = "inline-block";
+        }
+
+        function resetHadiah() {
+            document.getElementById("hasil-hadiah").style.display = "none";
+            document.getElementById("btn-lanjut").style.display = "none";
+            document.getElementById("wadah-tombol-kado").style.display = "block";
+        }
+
+        function pindahKeExtra() { slowScroll('layar-extra'); }
+
+        function pilihExtra(nomor) {
+            hujanConfetti();
+            const display = document.getElementById("hasil-extra");
+            let extra = ["Kita nongkrong asik! ☕", "Buket bunga buat kamu! 💐", "Ke Photobooth hits! 📸"][nomor-1];
+            document.getElementById("wadah-tombol-extra").style.display = "none";
+            display.style.display = "block";
+            display.innerHTML = `${extra}<br><button class="btn-reset" onclick="resetExtra()">Ganti... 🔄</button>`;
+            document.getElementById("btn-ke-kue").style.display = "inline-block";
+        }
+
+        function resetExtra() {
+            document.getElementById("hasil-extra").style.display = "none";
+            document.getElementById("btn-ke-kue").style.display = "none";
+            document.getElementById("wadah-tombol-extra").style.display = "block";
+        }
+
+        function pindahKeKue() { slowScroll('layar-kue'); }
+
+        function tiupLilin() {
+            const lilin = document.getElementById("lilinUtama");
+            if (!lilin.classList.contains('off')) {
+                lilin.classList.add('off');
+                setTimeout(() => {
+                    hujanConfetti();
+                    document.getElementById("pesan-final").style.display = "block";
+                }, 1000);
+            }
+        }
+    </script>
+</body>
+</html>
