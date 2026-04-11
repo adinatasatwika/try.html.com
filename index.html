@@ -439,7 +439,7 @@
         function pilihHadiah(nomor) {
             hujanConfetti();
             const display = document.getElementById("hasil-hadiah");
-            let kado = ["Free check out Shopee! 🛒", "Tiket Konser Jogja! 🎸", "Voucher Belanja 750rb! 🛍️"][nomor-1];
+            let kado = ["Free check out Shopee! 🛒", "Tiket Konser Jogja! 🎸", "Voucher Belanja 500rb! 🛍️"][nomor-1];
             document.getElementById("wadah-tombol-kado").style.display = "none";
             display.style.display = "block";
             display.innerHTML = `${kado}<br><button class="btn-reset" onclick="resetHadiah()">Ganti Kado... 🔄</button>`;
