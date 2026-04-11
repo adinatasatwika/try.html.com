@@ -161,6 +161,27 @@
             transition: 0.3s ease;
         }
 
+        /* --- STYLE BARU: MENGENANG --- */
+        .mengenang-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            padding: 10px;
+            background: rgba(255,255,255,0.4);
+            border-radius: 20px;
+        }
+        .mengenang-grid img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 3px solid white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
         #hasil-hadiah, #hasil-extra {
             margin-top: 25px;
             font-weight: bold;
@@ -264,7 +285,7 @@
             100% { opacity: 0; transform: translateX(-50%) translateY(-30px) scale(2); }
         }
 
-        #layar-pesan, #layar-quiz, #layar-hadiah, #layar-extra, #layar-asing, #layar-kue { display: none; }
+        #layar-mengenang, #layar-pesan, #layar-quiz, #layar-hadiah, #layar-extra, #layar-asing, #layar-kue { display: none; }
     </style>
 </head>
 <body>
@@ -288,6 +309,22 @@
             <input type="text" id="inputNama" placeholder="Ketik di sini...">
             <br>
             <button onclick="prosesKejutan()">Buka Kejutan ✨</button>
+        </div>
+    </section>
+
+    <section id="layar-mengenang">
+        <div class="card">
+            <h2>Mengenang Foto Kita ✨</h2>
+            <div class="mengenang-grid">
+                <img src="gambar/ini4.jpeg">
+                <img src="gambar/ini5.jpeg">
+                <img src="gambar/ini6.jpeg">
+                <img src="gambar/ini7.jpeg">
+                <img src="gambar/ini8.jpeg">
+                <img src="gambar/ini9.jpeg">
+                <img src="gambar/ini10.jpeg">
+            </div>
+            <button onclick="slowScroll('layar-pesan')">Lanjut Lihat Pesan ❤️</button>
         </div>
     </section>
 
@@ -322,7 +359,7 @@
         </div>
     </section>
 
- <section id="layar-hadiah">
+    <section id="layar-hadiah">
         <h1>Kado Utama Spesial! 🎁</h1>
         <p>Gokil! Kamu lulus tantangan. Silahkan pilih satu kado:</p>
         <div id="wadah-tombol-kado">
@@ -382,21 +419,19 @@
             confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#ff4081', '#ffffff'] });
         }
 
-        // --- NAVIGATION ---
         function slowScroll(targetId) {
             const target = document.getElementById(targetId);
             target.style.display = "flex";
             window.scrollTo({ top: target.offsetTop, behavior: 'smooth' });
         }
 
-        // --- LOGIC ---
         function prosesKejutan() {
             const nama = document.getElementById("inputNama").value.toLowerCase().trim();
             if (nama === "lintang kinasih") {
                 const audio = document.getElementById("musikSurprise");
                 audio.volume = 0.3; audio.play();
                 document.getElementById("namaUser").innerText = "Lintang Kinasih";
-                slowScroll('layar-pesan');
+                slowScroll('layar-mengenang'); // Masuk ke fitur mengenang dulu
             } else if (nama === "") {
                 alert("Namanya diisi dulu cantik...");
             } else {
