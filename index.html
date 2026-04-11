@@ -295,7 +295,7 @@
         <div class="card">
             <h2 style="color: #444;">HAYO SIAPA KAMU? 🤔</h2>
             <div class="pesan-teks">
-                <p>Maaf banget, akses ini terlarang selain buat <b>Lintang Kinasih Kepala Telur</b>.</p>
+                <p>Maaf banget, akses ini terlarang selain buat <b>Lintang Kinasih</b>.</p>
             </div>
             <button onclick="location.reload()">Coba Lagi</button>
         </div>
@@ -322,9 +322,11 @@
         </div>
     </section>
 
- <section id="layar-hadiah">
-        <h1>Kado Utama Spesial! 🎁</h1>
-        <p>Gokil! Kamu lulus tantangan. Silahkan pilih satu kado:</p>
+    <section id="layar-hadiah">
+        <h1 style="text-shadow: 2px 2px 5px rgba(0,0,0,0.3);">Kado Utama Spesial! 🎁</h1>
+        <p style="color: white; font-weight: bold; font-size: 1.2rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
+            Gokil! Kamu lulus tantangan. Silahkan pilih satu kado:
+        </p>
         <div id="wadah-tombol-kado">
             <button style="background: #ba68c8;" onclick="pilihHadiah(1)">🎁 Kado 1</button>
             <button style="background: #ba68c8;" onclick="pilihHadiah(2)">🎁 Kado 2</button>
@@ -439,7 +441,7 @@
         function pilihHadiah(nomor) {
             hujanConfetti();
             const display = document.getElementById("hasil-hadiah");
-            let kado = ["Free check out Shopee! 🛒", "Tiket Konser Jogja! 🎸", "Trip one day diSOLO! "][nomor-1];
+            let kado = ["Free check out Shopee! 🛒", "Tiket Konser Jogja! 🎸", "Voucher Belanja 500rb! 🛍️"][nomor-1];
             document.getElementById("wadah-tombol-kado").style.display = "none";
             display.style.display = "block";
             display.innerHTML = `${kado}<br><button class="btn-reset" onclick="resetHadiah()">Ganti Kado... 🔄</button>`;
